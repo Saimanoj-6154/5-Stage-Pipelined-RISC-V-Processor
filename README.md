@@ -139,3 +139,11 @@ riscv5-matmul-attention/
 
 ---
 
+## Tools
+
+- Verilator ≥ 5.0
+- RISC-V GNU toolchain (`riscv32-unknown-elf-gcc`)
+- Python 3.10+ with NumPy (reference model, accuracy analysis)
+- GTKWave for waveform debug
+
+
