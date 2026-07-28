@@ -147,3 +147,23 @@ riscv5-matmul-attention/
 - GTKWave for waveform debug
 
 
+## Verification Approach
+
+- **Core ISA compliance**: base RV32IM correctness checked independent
+  of the accelerator extension.
+- **Accelerator unit tests**: matmul and attention units validated in
+  isolation against generated test tensors and a fixed-point golden
+  model before integration.
+- **Reference model parity**: `verif/ref_model/numpy_transformer_ref.py`
+  implements the same small transformer block in floating point;
+  `fixed_point_model.py` mirrors the accelerator's fixed-point
+  precision. RTL output is checked against both, with error bounds
+  tracked explicitly rather than assumed.
+- **End-to-end system test**: the core runs `attention_block.c` in
+  simulation, exercising the full custom-instruction path from fetch
+  through accelerator execution to result writeback.
+- **Assertions (SVA)**: pipeline hazard correctness (no missed
+  forward/stall case around custom-instruction latency) and accelerator
+  handshake protocol (start/done signaling never misaligned with
+  pipeline stall behavior).
+
