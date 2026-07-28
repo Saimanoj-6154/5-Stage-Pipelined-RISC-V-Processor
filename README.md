@@ -31,3 +31,29 @@ instructions/coprocessor operations rather than pure software loops.
   tests against the NumPy reference, end-to-end inference of a small
   transformer block compared bit-for-bit (fixed-point) against the
   floating-point reference within a defined error bound
+
+
+## Architecture Overview
+
+```
+        ┌────┐     ┌────┐     ┌────────────────────┐     ┌─────┐     ┌────┐
+   ────▶│ IF │────▶│ ID │────▶│         EX           │────▶│ MEM │────▶│ WB │
+        └────┘     └────┘     │  ┌────────────────┐  │     └─────┘     └────┘
+                               │  │   Base ALU      │  │
+                               │  └────────────────┘  │
+                               │  ┌────────────────┐  │
+                               │  │  Matmul Unit    │  │  systolic MAC grid,
+                               │  │ (tile MAC array)│  │  local scratchpad
+                               │  └────────────────┘  │
+                               │  ┌────────────────┐  │
+                               │  │ Attention Unit  │  │  Q·Kᵀ, softmax approx,
+                               │  │ (score+softmax  │  │  weighted V aggregate
+                               │  │  +weighted-sum) │  │
+                               │  └────────────────┘  │
+                               └──────────┬───────────┘
+                                          ▼
+                             custom instr result forwarded
+                             into MEM/WB like any ALU op
+```
+
+---
