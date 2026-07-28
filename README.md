@@ -65,12 +65,12 @@ riscv5-matmul-attention/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
-├── Makefile                          # top-level: make sim / make regress / make sw
+├── Makefile                          
 ├── docs/
-│   ├── microarchitecture.md          # 5-stage pipeline + hazard handling spec
-│   ├── isa_extension.md              # custom instruction encodings, semantics
-│   ├── accelerator_design.md         # matmul + attention unit datapath, precision
-│   └── verification_plan.md          # test plan, reference-model comparison methodology
+│   ├── microarchitecture.md          
+│   ├── isa_extension.md              
+│   ├── accelerator_design.md         
+│   └── verification_plan.md          
 │
 ├── rtl/
 │   ├── core/
@@ -79,17 +79,17 @@ riscv5-matmul-attention/
 │   │   ├── ex_stage.sv
 │   │   ├── mem_stage.sv
 │   │   ├── wb_stage.sv
-│   │   ├── hazard_unit.sv            # forwarding, stall, flush logic
+│   │   ├── hazard_unit.sv            
 │   │   └── regfile.sv
 │   ├── accel/
-│   │   ├── matmul_unit.sv            # systolic MAC array, parametrized tile size
-│   │   ├── mac_pe.sv                 # single processing element
-│   │   ├── scratchpad.sv             # local operand/accumulator memory
-│   │   ├── attention_unit.sv         # Q.K^T + softmax + weighted-V datapath
-│   │   └── softmax_approx.sv         # piecewise-linear/LUT exp approximation
+│   │   ├── matmul_unit.sv            
+│   │   ├── mac_pe.sv                 
+│   │   ├── scratchpad.sv             
+│   │   ├── attention_unit.sv         
+│   │   └── softmax_approx.sv         
 │   ├── isa/
-│   │   ├── custom_decoder.sv         # decodes matmul/attention custom opcodes
-│   │   └── pkg_custom_isa.sv         # custom instruction encodings
+│   │   ├── custom_decoder.sv         
+│   │   └── pkg_custom_isa.sv         
 │   ├── common/
 │   │   └── pkg_riscv_defs.sv
 │   └── top/
@@ -97,28 +97,28 @@ riscv5-matmul-attention/
 │
 ├── sw/
 │   ├── runtime/
-│   │   ├── intrinsics.h              # C wrappers for custom instructions
+│   │   ├── intrinsics.h              
 │   │   └── crt0.S
 │   ├── kernels/
 │   │   ├── matmul_test.c
-│   │   └── attention_block.c         # small transformer block using the accel ops
+│   │   └── attention_block.c        
 │   └── linker/
 │       └── core.ld
 │
 ├── verif/
 │   ├── ref_model/
-│   │   ├── numpy_transformer_ref.py  # floating-point reference: matmul + attention block
-│   │   └── fixed_point_model.py      # fixed-point golden model matching accel precision
+│   │   ├── numpy_transformer_ref.py  
+│   │   └── fixed_point_model.py      
 │   ├── tb/
-│   │   ├── core_tb.sv                # ISA-level core sim, RV32IM compliance
+│   │   ├── core_tb.sv
 │   │   ├── matmul_unit_tb.sv
 │   │   ├── attention_unit_tb.sv
-│   │   └── system_tb.sv              # end-to-end: core running attention_block.c
+│   │   └── system_tb.sv              
 │   ├── sva/
-│   │   ├── hazard_assertions.sv      # no incorrect forward/stall combination
+│   │   ├── hazard_assertions.sv
 │   │   └── accel_handshake_assertions.sv
 │   └── vectors/
-│       └── gen_test_vectors.py       # generates matmul/attention test tensors
+│       └── gen_test_vectors.py       
 │
 ├── sim/
 │   └── verilator/
@@ -126,7 +126,7 @@ riscv5-matmul-attention/
 │       └── sim_main.cpp
 │
 ├── analysis/
-│   └── accuracy_report.py            # fixed-point vs. floating-point error analysis
+│   └── accuracy_report.py            
 │
 ├── scripts/
 │   ├── build_sw.sh
@@ -134,7 +134,7 @@ riscv5-matmul-attention/
 │
 └── .github/
     └── workflows/
-        └── ci.yml                    # lint + core-level smoke tests on push
+        └── ci.yml                    
 ```
 
 ---
